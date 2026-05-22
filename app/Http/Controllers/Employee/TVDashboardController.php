@@ -199,6 +199,9 @@ class TVDashboardController extends Controller
                 $carStatuses[] = [
                     'license' => $this->toUtf8($row['CAR_LICENSE'] ?? ''),
                     'type' => $this->toUtf8($row['CAR_GROUP'] ?? ''),
+                    'brand' => $this->toUtf8($row['CAR_BAND'] ?? ''),
+                    'model' => $this->toUtf8($row['CAR_MODEL'] ?? ''),
+                    'carType' => $this->toUtf8($row['CAR_TYPE'] ?? ''),
                     'availability' => $availability,
                     'hasBooking' => $hasBooking,
                 ];
@@ -355,6 +358,122 @@ class TVDashboardController extends Controller
     {
         if (empty($str)) return '';
         return @iconv('TIS-620', 'UTF-8', $str);
+    }
+
+    public function getDocAlerts(Request $request)
+    {
+        try {
+            $db = DB::connection('oracle_intra');
+            $filterPlant = trim($request->query('plant', '1100'));
+            $today = Carbon::now()->format('Y-m-d');
+            $soon = Carbon::now()->addDays(30)->format('Y-m-d');
+
+            $placeholder = $this->toTis620('กรุณาเลือก');
+
+            // Query cars with document records, checking expiration dates
+            $sql = "SELECT c.CAR_ID, c.CAR_LICENSE, c.CAR_GROUP, c.CAR_BAND, c.CAR_MODEL, c.CAR_TYPE, c.CAR_STATUS,
+                    d.INS_END_DATE, d.PRB_END_DATE, d.TAX_END_DATE
+                FROM TRC_CAR_NEW c
+                INNER JOIN (
+                    SELECT CAR_ID, INS_END_DATE, PRB_END_DATE, TAX_END_DATE,
+                           ROW_NUMBER() OVER (PARTITION BY CAR_ID ORDER BY CREATE_DATE DESC) AS RN
+                    FROM TRC_CAR_DOCS
+                ) d ON d.CAR_ID = c.CAR_ID AND d.RN = 1
+                WHERE TRIM(c.CAR_PLANT) = ?
+                AND TRIM(c.CAR_GROUP) != ?
+                AND (
+                    d.INS_END_DATE <= ? OR
+                    d.PRB_END_DATE <= ? OR
+                    d.TAX_END_DATE <= ?
+                )
+                ORDER BY LEAST(
+                    NVL(d.INS_END_DATE, '9999-12-31'),
+                    NVL(d.PRB_END_DATE, '9999-12-31'),
+                    NVL(d.TAX_END_DATE, '9999-12-31')
+                ) ASC";
+
+            $rows = $db->select($sql, [$filterPlant, $placeholder, $soon, $soon, $soon]);
+
+            // Keywords for repair status detection
+            $kwMaint = $this->toTis620('ส่งซ่อม');
+            $kwRepairWord = $this->toTis620('ซ่อม');
+            $kwNotReadyWord = $this->toTis620('ไม่พร้อม');
+
+            $alerts = [];
+            $statusCounts = ['ready' => 0, 'repair' => 0, 'not_ready' => 0];
+
+            foreach ($rows as $row) {
+                $row = array_change_key_case((array)$row, CASE_UPPER);
+
+                $docs = [];
+                $insEnd = $row['INS_END_DATE'] ?? null;
+                $prbEnd = $row['PRB_END_DATE'] ?? null;
+                $taxEnd = $row['TAX_END_DATE'] ?? null;
+
+                if ($insEnd && $insEnd <= $soon) {
+                    $docs[] = [
+                        'type' => 'ประกันภัย',
+                        'endDate' => $insEnd,
+                        'status' => $insEnd < $today ? 'expired' : 'expiring_soon',
+                    ];
+                }
+                if ($prbEnd && $prbEnd <= $soon) {
+                    $docs[] = [
+                        'type' => 'พ.ร.บ.',
+                        'endDate' => $prbEnd,
+                        'status' => $prbEnd < $today ? 'expired' : 'expiring_soon',
+                    ];
+                }
+                if ($taxEnd && $taxEnd <= $soon) {
+                    $docs[] = [
+                        'type' => 'ภาษีรถ',
+                        'endDate' => $taxEnd,
+                        'status' => $taxEnd < $today ? 'expired' : 'expiring_soon',
+                    ];
+                }
+
+                // Determine car availability status from CAR_STATUS field
+                $carStatusRaw = trim($row['CAR_STATUS'] ?? '');
+                $isRepair = (strpos($carStatusRaw, $kwMaint) !== false || strpos($carStatusRaw, $kwRepairWord) !== false);
+                $isNotReady = (strpos($carStatusRaw, $kwNotReadyWord) !== false);
+
+                if ($isRepair) {
+                    $carAvailability = 'repair';
+                    $statusCounts['repair']++;
+                } elseif ($isNotReady) {
+                    $carAvailability = 'not_ready';
+                    $statusCounts['not_ready']++;
+                } else {
+                    $carAvailability = 'ready';
+                    $statusCounts['ready']++;
+                }
+
+                if (count($docs) > 0) {
+                    $alerts[] = [
+                        'carId' => $row['CAR_ID'],
+                        'license' => $this->toUtf8($row['CAR_LICENSE'] ?? ''),
+                        'group' => $this->toUtf8($row['CAR_GROUP'] ?? ''),
+                        'brand' => $this->toUtf8($row['CAR_BAND'] ?? ''),
+                        'model' => $this->toUtf8($row['CAR_MODEL'] ?? ''),
+                        'carType' => $this->toUtf8($row['CAR_TYPE'] ?? ''),
+                        'carStatus' => $this->toUtf8($carStatusRaw),
+                        'carAvailability' => $carAvailability,
+                        'docs' => $docs,
+                    ];
+                }
+            }
+
+            return response()->json([
+                'success' => true,
+                'alerts' => $alerts,
+                'total' => count($alerts),
+                'today' => $today,
+                'statusCounts' => $statusCounts,
+            ], 200, [], JSON_UNESCAPED_UNICODE);
+
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
+        }
     }
 
     private function toTis620($str)

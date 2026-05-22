@@ -1,13 +1,13 @@
-/* ��������������������������������������������������������������������������������������������������������������
+/* โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•
    TV Dashboard Demo - Override Styles
    TV 65" TCL (1920x1080) + DARK THEME
    Extracted from tv_dashboard_1_demo.php inline <style>
-   �������������������������������������������������������������������������������������������������������������� */
+   โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ• */
 
-/* ── Font: Sarabun (Thai with heads, easier to read on TV) ── */
+/* โ”€โ”€ Font: Sarabun (Thai with heads, easier to read on TV) โ”€โ”€ */
 @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap');
 
-/* ── Global Font Override ── */
+/* โ”€โ”€ Global Font Override โ”€โ”€ */
 html, body,
 .tv-dashboard,
 .dash-header,
@@ -35,7 +35,7 @@ html, body,
     font-family: 'Sarabun', sans-serif !important;
 }
 
-/* ������ DARK THEME ������ */
+/* โ•โ•โ• DARK THEME โ•โ•โ• */
 :root {
     --bg-primary: #0b1120;
     --bg-secondary: #131c31;
@@ -69,7 +69,7 @@ body {
     background: #0b1120;
 }
 
-/* ── Background ── */
+/* โ”€โ”€ Background โ”€โ”€ */
 .bg-particles::before {
     background: radial-gradient(ellipse at 20% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
         radial-gradient(ellipse at 80% 20%, rgba(167, 139, 250, 0.06) 0%, transparent 50%),
@@ -93,7 +93,7 @@ body {
         linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
 }
 
-/* ── Header ── */
+/* โ”€โ”€ Header โ”€โ”€ */
 .dash-header {
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.06);
@@ -139,7 +139,7 @@ body {
     color: var(--accent-amber);
 }
 
-/* ── Stat Cards ── */
+/* โ”€โ”€ Stat Cards โ”€โ”€ */
 .tv-stat-card {
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.06);
@@ -149,7 +149,7 @@ body {
     color: var(--text-muted);
 }
 
-/* ── Glass Cards ── */
+/* โ”€โ”€ Glass Cards โ”€โ”€ */
 .glass-card {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.06);
@@ -159,7 +159,7 @@ body {
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-/* ── Fleet Status ── */
+/* โ”€โ”€ Fleet Status โ”€โ”€ */
 .fleet-card {
     background: rgba(255, 255, 255, 0.03);
 }
@@ -282,7 +282,7 @@ body {
     opacity: 0.9;
 }
 
-/* ── Donut Legend ── */
+/* โ”€โ”€ Donut Legend โ”€โ”€ */
 .donut-legend-item {
     color: var(--text-secondary);
 }
@@ -291,7 +291,7 @@ body {
     color: var(--text-primary);
 }
 
-/* ── Department ── */
+/* โ”€โ”€ Department โ”€โ”€ */
 .dept-name {
     color: var(--text-secondary);
 }
@@ -308,7 +308,7 @@ body {
     background: rgba(255, 255, 255, 0.06);
 }
 
-/* ── Ticker ── */
+/* โ”€โ”€ Ticker โ”€โ”€ */
 .dash-ticker {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.06);
@@ -327,7 +327,7 @@ body {
     color: var(--text-secondary);
 }
 
-/* ── Modal Dark ── */
+/* โ”€โ”€ Modal Dark โ”€โ”€ */
 .modal-container {
     background: rgba(15, 23, 42, 0.98);
 }
@@ -422,7 +422,7 @@ body {
     color: var(--text-muted);
 }
 
-/* ── Loading Overlay ── */
+/* โ”€โ”€ Loading Overlay โ”€โ”€ */
 .loading-overlay {
     background: #0b1120;
 }
@@ -431,7 +431,7 @@ body {
     color: var(--text-secondary);
 }
 
-/* ── Scrollbar ── */
+/* โ”€โ”€ Scrollbar โ”€โ”€ */
 .modal-body::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.08);
 }
@@ -440,12 +440,12 @@ body {
     background: rgba(255, 255, 255, 0.15);
 }
 
-/* ── Refresh Bar ── */
+/* โ”€โ”€ Refresh Bar โ”€โ”€ */
 .refresh-bar {
     background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
 }
 
-/* ── Force fit 100vh ── */
+/* โ”€โ”€ Force fit 100vh โ”€โ”€ */
 *, *::before, *::after {
     box-sizing: border-box;
 }
@@ -474,7 +474,7 @@ html, body {
     gap: 10px;
 }
 
-/* ── Force single-row header layout ── */
+/* โ”€โ”€ Force single-row header layout โ”€โ”€ */
 .dash-header-left {
     flex-shrink: 0;
     gap: 8px;
@@ -549,7 +549,7 @@ html, body {
     line-height: 1.2;
 }
 
-/* ── Stat Cards: ALL 7 in ONE row ── */
+/* โ”€โ”€ Stat Cards: ALL 7 in ONE row โ”€โ”€ */
 .stat-cards-row {
     grid-template-columns: repeat(6, 1fr) !important;
     gap: 4px;
@@ -611,10 +611,10 @@ html, body {
     margin-bottom: 1px;
 }
 
-/* ── Content Grid: 4 rows fill available space equally ── */
+/* โ”€โ”€ Content Grid: 4 rows fill available space equally โ”€โ”€ */
 .dash-content {
     grid-template-columns: 1fr;
-    grid-template-rows: auto minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 0.7fr) minmax(0, 1fr) minmax(0, 1fr);
     gap: 4px;
     overflow: hidden;
     min-height: 0;
@@ -657,13 +657,13 @@ html, body {
     height: 100%;
 }
 
-/* ── ทุ�� row ���� dash-content ��ห����ิด��อ�� ── */
+/* โ”€โ”€ เธ—เธธเธ row เนเธ dash-content เนเธซเนเธเธดเธ”เธเธญเธ โ”€โ”€ */
 .dash-content > div {
     min-height: 0;
     overflow: hidden;
 }
 
-/* ── Charts ── */
+/* โ”€โ”€ Charts โ”€โ”€ */
 .chart-container {
     min-height: 0;
     overflow: hidden;
@@ -709,7 +709,7 @@ html, body {
     height: 8px;
 }
 
-/* ── Department ── */
+/* โ”€โ”€ Department โ”€โ”€ */
 .dept-list {
     gap: 6px;
 }
@@ -730,18 +730,18 @@ html, body {
     height: 5px;
 }
 
-/* ── Mid Column ── */
+/* โ”€โ”€ Mid Column โ”€โ”€ */
 .mid-col {
     gap: 5px;
 }
 
-/* ── Ticker ── */
+/* โ”€โ”€ Ticker โ”€โ”€ */
 .dash-ticker {
     min-height: 0;
     padding: 2px 12px;
 }
 
-/* ── Fleet Status Board ── */
+/* โ”€โ”€ Fleet Status Board โ”€โ”€ */
 .fleet-header-row {
     padding: 6px 12px;
     font-size: 0.62rem;
@@ -787,7 +787,7 @@ html, body {
     font-size: 0.75rem;
 }
 
-/* ── Bottom Ticker ── */
+/* โ”€โ”€ Bottom Ticker โ”€โ”€ */
 .dash-ticker {
     padding: 2px 12px;
     border-radius: 8px;
@@ -807,7 +807,7 @@ html, body {
     height: 14px;
 }
 
-/* ── Plant & Date ── */
+/* โ”€โ”€ Plant & Date โ”€โ”€ */
 .plant-btn {
     font-size: 0.62rem;
     padding: 3px 10px;
@@ -833,7 +833,7 @@ html, body {
     height: 16px;
 }
 
-/* ── Modal TV Override ── */
+/* โ”€โ”€ Modal TV Override โ”€โ”€ */
 .modal-header {
     padding: 10px 20px;
 }
@@ -902,9 +902,9 @@ html, body {
     font-size: 0.85rem;
 }
 
-/* �������������������������������������������������������������������������������������� */
-/* ���� GPU Acceleration for TV (translateZ)  ���� */
-/* �������������������������������������������������������������������������������������� */
+/* โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ• */
+/* โ•โ• GPU Acceleration for TV (translateZ)  โ•โ• */
+/* โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ• */
 .tv-dashboard,
 .dash-header,
 .dash-content,
@@ -923,7 +923,7 @@ html, body {
     -webkit-backface-visibility: hidden;
 }
 
-/* Highcharts containers — force GPU layer */
+/* Highcharts containers โ€” force GPU layer */
 div[id*="Chart"],
 div[id*="chart"] {
     transform: translateZ(0);
@@ -936,11 +936,11 @@ div[id*="chart"] {
     -webkit-transform: translateZ(0);
 }
 
-/* �������������������������������������������������������������������������������������� */
-/* ���� 4K Override (3840×2160) — Scale ×2    ���� */
-/* �������������������������������������������������������������������������������������� */
+/* โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ• */
+/* โ•โ• 4K Override (3840ร—2160) โ€” Scale ร—2    โ•โ• */
+/* โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ•โ• */
 @media (min-width: 3000px) {
-    /* ── Dashboard Shell ── */
+    /* โ”€โ”€ Dashboard Shell โ”€โ”€ */
     .tv-dashboard {
         padding: 8px 24px 4px;
         gap: 8px;
@@ -951,7 +951,7 @@ div[id*="chart"] {
         border-radius: 16px;
     }
 
-    /* ── Header Text ── */
+    /* โ”€โ”€ Header Text โ”€โ”€ */
     .dash-title h1 {
         font-size: 2.6rem;
     }
@@ -972,7 +972,7 @@ div[id*="chart"] {
         font-size: 1.5rem;
     }
 
-    /* ── Stat Cards ── */
+    /* โ”€โ”€ Stat Cards โ”€โ”€ */
     .stat-cards-row {
         gap: 10px;
     }
@@ -1010,7 +1010,7 @@ div[id*="chart"] {
         margin-bottom: 4px;
     }
 
-    /* ── Content Grid ── */
+    /* โ”€โ”€ Content Grid โ”€โ”€ */
     .dash-content {
         gap: 20px;
     }
@@ -1031,7 +1031,7 @@ div[id*="chart"] {
         padding: 8px 16px;
     }
 
-    /* ── Fleet Board ── */
+    /* โ”€โ”€ Fleet Board โ”€โ”€ */
     .fleet-header-row {
         padding: 12px 24px;
         font-size: 1.2rem;
@@ -1065,7 +1065,7 @@ div[id*="chart"] {
         font-size: 1.5rem;
     }
 
-    /* ── Ticker ── */
+    /* โ”€โ”€ Ticker โ”€โ”€ */
     .dash-ticker {
         padding: 6px 24px;
         border-radius: 16px;
@@ -1085,7 +1085,7 @@ div[id*="chart"] {
         height: 28px;
     }
 
-    /* ── Plant & Date Controls ── */
+    /* โ”€โ”€ Plant & Date Controls โ”€โ”€ */
     .plant-btn {
         font-size: 1.3rem;
         padding: 8px 24px;
@@ -1110,7 +1110,7 @@ div[id*="chart"] {
         height: 32px;
     }
 
-    /* ── Modal ── */
+    /* โ”€โ”€ Modal โ”€โ”€ */
     .modal-title-wrap h2 { font-size: 2rem; }
     .modal-count { font-size: 1.4rem; padding: 8px 20px; }
     .modal-close-btn { width: 72px; height: 72px; font-size: 2rem; }
@@ -1123,4 +1123,183 @@ div[id*="chart"] {
     .dep-status-badge { font-size: 1.2rem; padding: 6px 16px; }
     .modal-empty i { font-size: 3rem; }
     .modal-empty span { font-size: 1.7rem; }
+}
+
+
+/* ══════════════════════════════════════════════════════════ */
+/* Desktop / Laptop Responsive (fit single page)            */
+/* ══════════════════════════════════════════════════════════ */
+
+/* ── Desktop Full HD (height 801-1100px) ── */
+@media (min-height: 801px) and (max-height: 1100px) {
+    .dash-content {
+        grid-template-rows: auto minmax(0, 0.7fr) minmax(0, 1fr) minmax(0, 1fr) !important;
+    }
+
+    .dash-title h1 {
+        font-size: 1.15rem;
+    }
+
+    .dash-title .subtitle {
+        font-size: 0.72rem;
+    }
+
+    .dash-clock {
+        font-size: 1.75rem;
+    }
+
+    .date-text {
+        font-size: 0.78rem;
+    }
+
+    .stat-card-label {
+        font-size: 0.82rem;
+    }
+
+    .stat-card-value {
+        font-size: 1.55rem;
+    }
+
+    .stat-card-unit {
+        font-size: 0.62rem;
+    }
+
+    .stat-card-icon {
+        width: 26px;
+        height: 26px;
+        font-size: 0.75rem;
+    }
+
+    .glass-card-header h3 {
+        font-size: 0.88rem;
+    }
+
+    .glass-card-header {
+        padding: 3px 12px;
+    }
+
+    .glass-card-body {
+        padding: 2px 8px;
+    }
+
+    .plant-btn {
+        font-size: 0.7rem;
+        padding: 4px 12px;
+    }
+
+    .live-badge {
+        font-size: 0.6rem;
+        padding: 4px 10px;
+    }
+
+    .date-input {
+        font-size: 0.78rem;
+    }
+
+    .ticker-label {
+        font-size: 0.65rem;
+        padding: 3px 10px;
+    }
+
+    .ticker-item {
+        font-size: 0.72rem;
+    }
+
+    .fleet-header-row { font-size: 0.68rem; }
+    .fleet-col-car { font-size: 0.72rem; }
+    .fleet-license { font-size: 0.75rem; }
+    .fleet-col-brand { font-size: 0.65rem; }
+    .dept-name { font-size: 0.72rem; }
+    .dept-count { font-size: 0.72rem; }
+}
+
+/* ── Laptop (height <= 800px, e.g. 1366x768) ── */
+@media (max-height: 800px) {
+    .tv-dashboard {
+        padding: 3px 2.5% 2px;
+        gap: 2px;
+    }
+
+    .dash-header {
+        padding: 2px 12px;
+    }
+
+    .dash-content {
+        gap: 3px;
+        grid-template-rows: auto minmax(0, 0.65fr) minmax(0, 1fr) minmax(0, 1fr) !important;
+    }
+
+    .dash-content > div {
+        gap: 3px !important;
+    }
+
+    .stat-cards-row { gap: 3px; }
+    .tv-stat-card { padding: 3px 6px; }
+    .stat-card-value { font-size: 1.35rem; }
+    .stat-card-label { font-size: 0.72rem; }
+    .stat-card-unit { font-size: 0.52rem; }
+    .stat-card-icon { width: 20px; height: 20px; font-size: 0.6rem; }
+
+    .glass-card-header { padding: 1px 8px; }
+    .glass-card-header h3 { font-size: 0.72rem; }
+    .glass-card-body { padding: 1px 4px; }
+
+    .dash-ticker { padding: 1px 10px; }
+    .ticker-label { font-size: 0.55rem; padding: 1px 6px; }
+    .ticker-item { font-size: 0.6rem; }
+
+    .dash-title h1 { font-size: 0.9rem; }
+    .dash-title .subtitle { font-size: 0.58rem; }
+    .dash-clock { font-size: 1.4rem; }
+    .date-text { font-size: 0.62rem; }
+}
+
+/* ── Small laptop (height <= 700px, e.g. 1280x720) ── */
+@media (max-height: 700px) {
+    .tv-dashboard {
+        padding: 2px 2% 1px;
+        gap: 1px;
+    }
+
+    .dash-header {
+        padding: 2px 10px;
+        gap: 6px;
+    }
+
+    .dash-content {
+        gap: 2px;
+        grid-template-rows: auto minmax(0, 0.6fr) minmax(0, 1fr) minmax(0, 1fr) !important;
+    }
+
+    .dash-content > div {
+        gap: 2px !important;
+    }
+
+    .dash-title h1 { font-size: 0.82rem; }
+    .dash-title .subtitle { display: none; }
+    .dash-clock { font-size: 1.2rem; }
+    .date-text { font-size: 0.55rem; }
+
+    .stat-cards-row { gap: 2px; }
+    .tv-stat-card { padding: 2px 5px; }
+    .stat-card-value { font-size: 1.15rem; }
+    .stat-card-label { font-size: 0.62rem; }
+    .stat-card-unit { font-size: 0.48rem; }
+    .stat-card-icon { width: 18px; height: 18px; font-size: 0.55rem; }
+    .stat-card-top { gap: 2px; margin-bottom: 0; }
+
+    .glass-card-header { padding: 1px 6px; }
+    .glass-card-header h3 { font-size: 0.65rem; }
+    .glass-card-body { padding: 0 3px; }
+
+    .dash-ticker { padding: 1px 8px; }
+    .ticker-label { font-size: 0.5rem; padding: 1px 5px; }
+    .ticker-item { font-size: 0.55rem; }
+
+    .plant-btn { font-size: 0.55rem; padding: 2px 7px; }
+    .live-badge { font-size: 0.5rem; padding: 2px 6px; }
+    .date-input { font-size: 0.6rem; }
+    .date-nav-btn { width: 18px; height: 18px; font-size: 0.6rem; }
+    .logo-car-svg { width: 26px; height: 13px; }
+    .dash-logo { width: 28px; height: 28px; }
 }

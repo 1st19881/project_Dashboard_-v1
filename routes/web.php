@@ -186,5 +186,6 @@ use App\Http\Controllers\Employee\TVDashboardController;
 Route::prefix('tv-dashboard')->name('tv.dashboard.')->group(function () {
     Route::get('/', [TVDashboardController::class, 'index'])->name('index');
     Route::get('/data', [TVDashboardController::class, 'getData'])->name('data');
+    Route::get('/doc-alerts', [TVDashboardController::class, 'getDocAlerts'])->name('doc-alerts');
 });
 
