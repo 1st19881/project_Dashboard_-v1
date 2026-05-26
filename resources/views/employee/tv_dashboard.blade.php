@@ -62,10 +62,10 @@
             .mb-5, .mb-4 { margin-bottom: 0.4rem !important; }
             .g-4, .g-3 { --bs-gutter-x: 0.6rem; --bs-gutter-y: 0.4rem; }
             .stat-card { padding: 0.7rem 1rem !important; }
-            .stat-value { font-size: 2rem !important; margin-bottom: 0.15rem !important; }
-            .stat-label { font-size: 0.65rem !important; }
+            .stat-value { font-size: 2.3rem !important; margin-bottom: 0.15rem !important; }
+            .stat-label { font-size: 0.78rem !important; }
             .glass-card-header { padding: 0.4rem 1rem !important; }
-            .glass-card-header h3 { font-size: 0.75rem !important; }
+            .glass-card-header h3 { font-size: 0.95rem !important; }
             .glass-card-body { padding: 0.15rem 0.5rem !important; }
             
             #fleetOverviewChart, #carGroupDonutChart, #carBodyDonutChart { height: 17vh !important; }
@@ -330,7 +330,7 @@
         }
 
         .glass-card-header h3 {
-            font-size: 0.9rem;
+            font-size: 1.05rem;
             font-weight: 600;
             margin: 0;
             color: var(--accent-cyan);
@@ -365,7 +365,7 @@
 
         .stat-label {
             color: var(--text-muted);
-            font-size: 0.75rem;
+            font-size: 0.9rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.1em;
@@ -1325,10 +1325,10 @@
             renderCarGroupDonut(data.carGroupChart);
             renderCarBodyDonut(data.carBodyChart);
             
-            renderComboChart('dailyDeptComboChart', data.topDepartments, '#22d3ee', 'คัน');
-            renderComboChart('dailyLocComboChart', data.topLocations, '#22d3ee', 'คัน');
-            renderComboChart('monthlyDeptComboChart', data.topDeptMonthly, '#3b82f6', 'คัน');
-            renderComboChart('monthlyLocComboChart', data.topLocMonthly, '#3b82f6', 'คัน');
+            renderLineChart('dailyDeptComboChart', data.topDepartments, '#22d3ee', 'คัน');
+            renderLineChart('dailyLocComboChart', data.topLocations, '#22d3ee', 'คัน');
+            renderLineChart('monthlyDeptComboChart', data.topDeptMonthly, '#3b82f6', 'คัน');
+            renderLineChart('monthlyLocComboChart', data.topLocMonthly, '#3b82f6', 'คัน');
             
             updatePlants(data.availablePlants);
         }
@@ -1395,7 +1395,7 @@
                 const cy = (top + bottom) / 2;
                 c.save();
                 if (text) {
-                    c.font = 'bold 1.2rem Outfit, Sarabun, sans-serif';
+                    c.font = 'bold 1.45rem Outfit, Sarabun, sans-serif';
                     c.fillStyle = '#f8fafc';
                     c.textAlign = 'center';
                     c.textBaseline = 'middle';
@@ -1433,7 +1433,7 @@
                 if (total === 0) return;
 
                 const outerRadius = meta.data[0]?.outerRadius || 0;
-                const fontSize = chart.config.options?.plugins?.leaderLines?.fontSize || 9;
+                const fontSize = chart.config.options?.plugins?.leaderLines?.fontSize || 10;
                 const lineLen = chart.config.options?.plugins?.leaderLines?.lineLength || 18;
                 const elbowLen = chart.config.options?.plugins?.leaderLines?.elbowLength || 14;
 
@@ -1464,21 +1464,23 @@
                     labels.push({ val, pct, name, isRight, edgeX, edgeY, midX, midY, endX, endY, color: dataset.backgroundColor[i] || '#94a3b8', i });
                 });
 
-                // Simple anti-collision: push labels apart if too close vertically
-                const minGap = fontSize * 2.2;
+                // Simple anti-collision: push labels apart if too close vertically (multi-pass relaxation for multi-label clusters)
+                const minGap = fontSize * 2.6;
                 const sides = { left: [], right: [] };
                 labels.forEach(l => sides[l.isRight ? 'right' : 'left'].push(l));
 
                 ['left', 'right'].forEach(side => {
                     const arr = sides[side].sort((a, b) => a.endY - b.endY);
-                    for (let j = 1; j < arr.length; j++) {
-                        const diff = arr[j].endY - arr[j - 1].endY;
-                        if (diff < minGap) {
-                            const shift = (minGap - diff) / 2;
-                            arr[j - 1].endY -= shift;
-                            arr[j - 1].midY -= shift;
-                            arr[j].endY += shift;
-                            arr[j].midY += shift;
+                    for (let pass = 0; pass < 5; pass++) {
+                        for (let j = 1; j < arr.length; j++) {
+                            const diff = arr[j].endY - arr[j - 1].endY;
+                            if (diff < minGap) {
+                                const shift = (minGap - diff) / 2;
+                                arr[j - 1].endY -= shift;
+                                arr[j - 1].midY -= shift;
+                                arr[j].endY += shift;
+                                arr[j].midY += shift;
+                            }
                         }
                     }
                 });
@@ -1686,23 +1688,34 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    layout: { padding: { top: 18, right: 5, left: 5 } },
                     interaction: { intersect: false, mode: 'index' },
                     scales: {
                         x: {
                             grid: { display: false },
                             border: { display: false },
-                            ticks: { color: '#64748b', font: { size: 9 }, maxRotation: 45, minRotation: 0 }
+                            ticks: {
+                                color: '#64748b',
+                                font: { size: 11 },
+                                maxRotation: 45,
+                                minRotation: 0,
+                                callback: function(value, index) {
+                                    const label = this.getLabelForValue(value);
+                                    return label.length > 12 ? label.substring(0, 12) + '...' : label;
+                                }
+                            }
                         },
                         y: {
                             grid: { color: 'rgba(255,255,255,0.03)' },
                             border: { display: false },
-                            ticks: { color: '#475569', font: { size: 9 } },
+                            ticks: { color: '#475569', font: { size: 11 } },
                             beginAtZero: true
                         }
                     },
                     plugins: {
                         tooltip: {
                             callbacks: {
+                                title: (items) => categories[items[0].dataIndex],
                                 label: (ctx) => `${ctx.dataset.label}: ${ctx.raw} ${unit}`
                             }
                         }
@@ -1716,12 +1729,116 @@
                         if (!meta) return;
                         const c = chart.ctx;
                         c.save();
-                        c.font = '9px Outfit, Sarabun, sans-serif';
-                        c.fillStyle = '#94a3b8';
+                        c.font = 'bold 9px Outfit, Sarabun, sans-serif';
+                        c.fillStyle = '#cbd5e1';
                         c.textAlign = 'center';
                         c.textBaseline = 'bottom';
+                        let lastX = -Infinity;
                         meta.data.forEach((bar, i) => {
-                            c.fillText(`${values[i]} ${unit}`, bar.x, bar.y - 4);
+                            if (bar.x - lastX < 28) return; // skip if too close
+                            c.fillText(values[i], bar.x, bar.y - 4);
+                            lastX = bar.x;
+                        });
+                        c.restore();
+                    }
+                }]
+            });
+        }
+
+        function renderLineChart(id, data, color, unit) {
+            if (!data || data.length === 0) return;
+            const categories = data.map(i => i.name);
+            const values = data.map(i => i.count);
+            
+            const container = document.getElementById(id);
+            let canvas = container;
+            if (container.tagName !== 'CANVAS') {
+                canvas = container.querySelector('canvas');
+                if (!canvas) {
+                    canvas = document.createElement('canvas');
+                    container.innerHTML = '';
+                    container.appendChild(canvas);
+                }
+            }
+            const ctx2d = canvas.getContext('2d');
+            const grad = ctx2d.createLinearGradient(0, 0, 0, canvas.height || 280);
+            grad.addColorStop(0, color + '33'); // 20% opacity
+            grad.addColorStop(1, color + '00'); // 0% opacity
+
+            getOrCreateChart(id, {
+                type: 'line',
+                data: {
+                    labels: categories,
+                    datasets: [
+                        {
+                            label: 'จำนวน',
+                            data: values,
+                            borderColor: color,
+                            borderWidth: 2,
+                            pointBackgroundColor: color,
+                            pointBorderColor: '#f8fafc',
+                            pointBorderWidth: 1,
+                            pointRadius: 3,
+                            pointHoverRadius: 5,
+                            tension: 0.3,
+                            fill: true,
+                            backgroundColor: grad
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    layout: { padding: { top: 18, right: 5, left: 5 } },
+                    interaction: { intersect: false, mode: 'index' },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            border: { display: false },
+                            ticks: {
+                                color: '#64748b',
+                                font: { size: 11 },
+                                maxRotation: 45,
+                                minRotation: 0,
+                                callback: function(value, index) {
+                                    const label = this.getLabelForValue(value);
+                                    return label.length > 12 ? label.substring(0, 12) + '...' : label;
+                                }
+                            }
+                        },
+                        y: {
+                            grid: { color: 'rgba(255,255,255,0.03)' },
+                            border: { display: false },
+                            ticks: { color: '#475569', font: { size: 11 } },
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                title: (items) => categories[items[0].dataIndex],
+                                label: (ctx) => `${ctx.dataset.label}: ${ctx.raw} ${unit}`
+                            }
+                        }
+                    }
+                },
+                plugins: [{
+                    // Data labels on top of line points
+                    id: 'lineLabels',
+                    afterDatasetsDraw(chart) {
+                        const meta = chart.getDatasetMeta(0);
+                        if (!meta) return;
+                        const c = chart.ctx;
+                        c.save();
+                        c.font = 'bold 9px Outfit, Sarabun, sans-serif';
+                        c.fillStyle = '#cbd5e1';
+                        c.textAlign = 'center';
+                        c.textBaseline = 'bottom';
+                        let lastX = -Infinity;
+                        meta.data.forEach((point, i) => {
+                            if (point.x - lastX < 28) return; // skip if too close
+                            c.fillText(values[i], point.x, point.y - 6);
+                            lastX = point.x;
                         });
                         c.restore();
                     }
